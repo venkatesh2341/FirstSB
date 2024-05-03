@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -27,6 +28,14 @@ public class Task1Controller {
     public ResponseEntity<List<Todo>> getAllTodos()
     {
         return new ResponseEntity<>( todos, HttpStatus.OK);
+    }
+
+    @GetMapping("/")
+    public ResponseEntity getTodo(@RequestParam(required = false, defaultValue = "false") boolean isCompleted)
+    {
+        System.out.println("Request param is " + isCompleted);
+        List<Todo> fileterdTodo= todos.stream().filter(todo -> todo.getStatus() == isCompleted).toList();
+        return ResponseEntity.ok().body(fileterdTodo);
     }
 
     @PostMapping

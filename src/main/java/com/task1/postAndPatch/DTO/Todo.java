@@ -28,7 +28,7 @@ public class Todo {
         this.task = name;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
