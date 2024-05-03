@@ -3,8 +3,10 @@ package com.task1.postAndPatch.Controller;
 import com.task1.postAndPatch.DTO.Todo;
 import com.task1.postAndPatch.Service.TaskService;
 import com.task1.postAndPatch.Service.TaskServiceImpl1;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,21 +19,23 @@ import java.util.Optional;
 public class Task1Controller {
 
     List<Todo> todos ;
-    TaskService taskService;
+    TaskService taskService1;
+    TaskService taskService2;
 
 
-    Task1Controller(TaskService taskService)
+    Task1Controller(@Qualifier("taskServiceImpl1") TaskService taskService1, @Qualifier("taskServiceImpl2") TaskService taskService2)
     {
         todos= new ArrayList<>();
         todos.add(new Todo(1,"clean", false));
         todos.add(new Todo(3, "eat", true));
         //Constructor based dependency injection
-        this.taskService = taskService;
+        this.taskService1 = taskService1;
+        this.taskService2= taskService2;
     }
 
     @GetMapping("/service")
     private String getService(){
-        return taskService.getService();
+        return taskService1.getService() + " " + taskService2.getService();
     }
 
 
