@@ -39,7 +39,7 @@ public class Task1Controller {
 
     @GetMapping("/service")
     private String getService(){
-        System.out.println("printing in controller");
+
         return taskService1.getService() + " " + taskService2.getService();
     }
 

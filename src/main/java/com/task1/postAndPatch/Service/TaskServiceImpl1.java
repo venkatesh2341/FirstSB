@@ -12,7 +12,7 @@ public class TaskServiceImpl1 implements TaskService{
     @TimeMonitor
     public String getService()
     {
-
+        for(long i=0; i<1000000000L; i++);
         return "TaskService 1";
     }
 }
