@@ -1,7 +1,8 @@
 package com.task1.postAndPatch.Controller;
 
 import com.task1.postAndPatch.DTO.Todo;
-import org.apache.coyote.Response;
+import com.task1.postAndPatch.Service.TaskService;
+import com.task1.postAndPatch.Service.TaskServiceImpl1;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @RestController
@@ -17,12 +17,23 @@ import java.util.stream.Collectors;
 public class Task1Controller {
 
     List<Todo> todos ;
-    Task1Controller()
+    TaskService taskService;
+
+
+    Task1Controller(TaskService taskService)
     {
         todos= new ArrayList<>();
         todos.add(new Todo(1,"clean", false));
         todos.add(new Todo(3, "eat", true));
+        //Constructor based dependency injection
+        this.taskService = taskService;
     }
+
+    @GetMapping("/service")
+    private String getService(){
+        return taskService.getService();
+    }
+
 
     @GetMapping
     public ResponseEntity<List<Todo>> getAllTodos()
