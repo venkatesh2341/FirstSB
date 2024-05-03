@@ -1,5 +1,6 @@
 package com.task1.postAndPatch.Controller;
 
+import com.task1.postAndPatch.CustomAnnotation.TimeMonitor;
 import com.task1.postAndPatch.DTO.Todo;
 import com.task1.postAndPatch.Service.TaskService;
 import com.task1.postAndPatch.Service.TaskServiceImpl1;
@@ -38,12 +39,13 @@ public class Task1Controller {
 
     @GetMapping("/service")
     private String getService(){
+        System.out.println("printing in controller");
         return taskService1.getService() + " " + taskService2.getService();
     }
 
 
     @GetMapping
-    public ResponseEntity<List<Todo>> getAllTodos()
+    private ResponseEntity<List<Todo>> getAllTodos()
     {
         return new ResponseEntity<>( todos, HttpStatus.OK);
     }
