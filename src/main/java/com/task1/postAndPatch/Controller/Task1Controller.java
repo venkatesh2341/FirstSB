@@ -3,6 +3,7 @@ package com.task1.postAndPatch.Controller;
 import com.task1.postAndPatch.DTO.Todo;
 import com.task1.postAndPatch.Service.TaskService;
 import com.task1.postAndPatch.Service.TaskServiceImpl1;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,18 +20,20 @@ import java.util.Optional;
 public class Task1Controller {
 
     List<Todo> todos ;
+    @Autowired
+    @Qualifier("taskServiceImpl1")
     TaskService taskService1;
+
+    @Autowired
+    @Qualifier("taskServiceImpl2")
     TaskService taskService2;
 
 
-    Task1Controller(@Qualifier("taskServiceImpl1") TaskService taskService1, @Qualifier("taskServiceImpl2") TaskService taskService2)
+    Task1Controller()
     {
         todos= new ArrayList<>();
         todos.add(new Todo(1,"clean", false));
         todos.add(new Todo(3, "eat", true));
-        //Constructor based dependency injection
-        this.taskService1 = taskService1;
-        this.taskService2= taskService2;
     }
 
     @GetMapping("/service")
